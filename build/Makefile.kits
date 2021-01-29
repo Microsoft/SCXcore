@@ -114,7 +114,6 @@ ifneq ($(COMBINED_PACKAGES),1)
 
 	sudo rm -rf $(STAGING_DIR)
 	$(STRIP_PATH) $(SCX_BRD)/intermediate/$(BUILD_CONFIGURATION)/* > /dev/null 2>&1|true
-	$(STRIP_PATH) $(SCX_BRD)/intermediate/$(BUILD_CONFIGURATION)/*.so
 	python $(SCXPAL_DIR)/installer/InstallBuilder/installbuilder.py \
 		--BASE_DIR=$(SCX_BRD) \
 		--TARGET_DIR=$(INTERMEDIATE_DIR) \
@@ -200,7 +199,6 @@ ifeq ($(PF_ARCH),x64)
 	sudo rm -rf $(STAGING_DIR)
 endif
 	$(STRIP_PATH) $(SCX_BRD)/intermediate/$(BUILD_CONFIGURATION)/* > /dev/null 2>&1|true
-	$(STRIP_PATH) $(SCX_BRD)/intermediate/$(BUILD_CONFIGURATION)/*.so
 	python $(SCXPAL_DIR)/installer/InstallBuilder/installbuilder.py \
 		--BASE_DIR=$(SCX_BRD) \
 		--TARGET_DIR=$(INTERMEDIATE_DIR)/098 \
@@ -323,7 +321,6 @@ endif
 
 	# Next comes DEB release packages
 	$(STRIP_PATH) $(SCX_BRD)/intermediate/$(BUILD_CONFIGURATION)/* > /dev/null 2>&1|true
-	$(STRIP_PATH) $(SCX_BRD)/intermediate/$(BUILD_CONFIGURATION)/*.so
 	sudo rm -rf $(STAGING_DIR)
 	python $(SCXPAL_DIR)/installer/InstallBuilder/installbuilder.py \
 		--BASE_DIR=$(SCX_BRD) \
