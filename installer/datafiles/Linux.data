@@ -55,10 +55,12 @@ if [ -e /usr/sbin/semodule ]; then
 fi
 
 %Postuninstall_1500
-if [ -e /usr/sbin/semodule ]; then
-    if [ ! -z "$(/usr/sbin/semodule -l | grep scxagent-logrotate)" ]; then
-        echo "Removing selinux policy module for scxagent-logrotate ..."
-        /usr/sbin/semodule -r scxagent-logrotate
+if ${{PERFORMING_UPGRADE_NOT}}; then
+    if [ -e /usr/sbin/semodule ]; then
+        if [ ! -z "$(/usr/sbin/semodule -l | grep scxagent-logrotate)" ]; then
+            echo "Removing selinux policy module for scxagent-logrotate ..."
+            /usr/sbin/semodule -r scxagent-logrotate
+        fi
     fi
 fi
 
