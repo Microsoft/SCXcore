@@ -146,12 +146,11 @@ fi
             ${{OMI_CONF_EDITOR}} httpsport -r 1270 < ${{OMI_CONF_FILE}} > ${{OMI_CONF_FILE}}_temp
             mv ${{OMI_CONF_FILE}}_temp ${{OMI_CONF_FILE}}
         fi
+        # Clean up logrotate
+        rm -f /etc/logrotate.d/scxagent
+        rm -f /etc/cron.d/scxagent
     fi
 #endif
-
-# Clean up logrotate
-rm -f /etc/logrotate.d/scxagent
-rm -f /etc/cron.d/scxagent
 
 
 %Postuninstall_1100
