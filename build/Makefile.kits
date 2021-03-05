@@ -387,12 +387,12 @@ endif
 
 endif
 
-changetargetdir:
-	# Change Target Dir and package prefix to symbol one
-	INTERMEDIATE_DIR=$(INTERMEDIATE_DIR)_$(WITH_SYMBOLS)
-	OUTPUT_PACKAGE_PREFIX=$(OUTPUT_PACKAGE_PREFIX).$(WITH_SYMBOLS)
+callgenbundle2: INTERMEDIATE_DIR:=$(INTERMEDIATE_DIR)_$(WITH_SYMBOLS)
+callgenbundle2: OUTPUT_PACKAGE_PREFIX:=$(OUTPUT_PACKAGE_PREFIX).$(WITH_SYMBOLS)
+callgenbundle2: genbundle2
+	# Done generate the second bundle
 
-bundle: kit genbundle1 changetargetdir genbundle2
+bundle: kit genbundle1 callgenbundle2
 	# Done bundle
 
 genbundle1 genbundle2:
