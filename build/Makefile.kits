@@ -389,7 +389,7 @@ endif
 
 changetargetdir:
 	# Change Target Dir and package prefix to symbol one
-	INTERMEDIATE_DIR=$(INTERMEDIATE_DIR_WITHSYMBOLS)
+	INTERMEDIATE_DIR=$(INTERMEDIATE_DIR)_$(WITH_SYMBOLS)
 	OUTPUT_PACKAGE_PREFIX=$(OUTPUT_PACKAGE_PREFIX).$(WITH_SYMBOLS)
 
 bundle: kit genbundle changetargetdir genbundle
