@@ -96,13 +96,11 @@ kit : GetLinuxOS scx_scripts sepolicy
 	$(ECHO) PF_ARCH=$(PF_ARCH) >> $(SCX_BRD)/intermediate/$(BUILD_CONFIGURATION)/pf_file.sh
         # The options passed to the installbuilder are inserted into the Variables list.  They will override whatever variables are specified in the datafiles.
 
-INTERMEDIATE_DIR_WITHSYMBOLS=$(INTERMEDIATE_DIR)_$(WITH_SYMBOLS)
-
 ifneq ($(COMBINED_PACKAGES),1)
 	sudo rm -rf $(STAGING_DIR)
 	python $(SCXPAL_DIR)/installer/InstallBuilder/installbuilder.py \
 		--BASE_DIR=$(SCX_BRD) \
-		--TARGET_DIR=$(INTERMEDIATE_DIR_WITHSYMBOLS) \
+		--TARGET_DIR=$(INTERMEDIATE_DIR)_$(WITH_SYMBOLS) \
 		--INTERMEDIATE_DIR=$(SCX_BRD)/installer/intermediate \
 		--STAGING_DIR=$(STAGING_DIR) \
 		--OMI_DIR=$(SCXOMI_DIR) \
@@ -148,7 +146,7 @@ else
 
 	python $(SCXPAL_DIR)/installer/InstallBuilder/installbuilder.py \
 		--BASE_DIR=$(SCX_BRD) \
-		--TARGET_DIR=$(INTERMEDIATE_DIR_WITHSYMBOLS)/098 \
+		--TARGET_DIR=$(INTERMEDIATE_DIR)_$(WITH_SYMBOLS)/098 \
 		--INTERMEDIATE_DIR=$(SCX_BRD)/installer/intermediate \
 		--STAGING_DIR=$(STAGING_DIR) \
 		--OMI_DIR=$(SCXOMI_DIR) \
@@ -187,7 +185,7 @@ ifeq ($(PF_ARCH),x64)
 	mkdir -p $(INTERMEDIATE_DIR)/110
 	python $(SCXPAL_DIR)/installer/InstallBuilder/installbuilder.py \
 		--BASE_DIR=$(SCX_BRD) \
-		--TARGET_DIR=$(INTERMEDIATE_DIR_WITHSYMBOLS)/110 \
+		--TARGET_DIR=$(INTERMEDIATE_DIR)_$(WITH_SYMBOLS)/110 \
 		--INTERMEDIATE_DIR=$(SCX_BRD)/installer/intermediate \
 		--STAGING_DIR=$(STAGING_DIR) \
 		--OMI_DIR=$(SCXOMI_DIR) \
@@ -267,7 +265,7 @@ endif
 	sudo rm -rf $(STAGING_DIR)
 	python $(SCXPAL_DIR)/installer/InstallBuilder/installbuilder.py \
 		--BASE_DIR=$(SCX_BRD) \
-		--TARGET_DIR=$(INTERMEDIATE_DIR_WITHSYMBOLS)/098 \
+		--TARGET_DIR=$(INTERMEDIATE_DIR)_$(WITH_SYMBOLS)/098 \
 		--INTERMEDIATE_DIR=$(SCX_BRD)/installer/intermediate \
 		--STAGING_DIR=$(STAGING_DIR) \
 		--OMI_DIR=$(SCXOMI_DIR) \
@@ -286,7 +284,7 @@ endif
 	sudo rm -rf $(STAGING_DIR)
 	python $(SCXPAL_DIR)/installer/InstallBuilder/installbuilder.py \
 		--BASE_DIR=$(SCX_BRD) \
-		--TARGET_DIR=$(INTERMEDIATE_DIR_WITHSYMBOLS)/100 \
+		--TARGET_DIR=$(INTERMEDIATE_DIR)_$(WITH_SYMBOLS)/100 \
 		--INTERMEDIATE_DIR=$(SCX_BRD)/installer/intermediate \
 		--STAGING_DIR=$(STAGING_DIR) \
 		--OMI_DIR=$(SCXOMI_DIR) \
@@ -306,7 +304,7 @@ endif
 ifeq ($(PF_ARCH),x64)
 	python $(SCXPAL_DIR)/installer/InstallBuilder/installbuilder.py \
 		--BASE_DIR=$(SCX_BRD) \
-		--TARGET_DIR=$(INTERMEDIATE_DIR_WITHSYMBOLS)/110 \
+		--TARGET_DIR=$(INTERMEDIATE_DIR)_$(WITH_SYMBOLS)/110 \
 		--INTERMEDIATE_DIR=$(SCX_BRD)/installer/intermediate \
 		--STAGING_DIR=$(STAGING_DIR) \
 		--OMI_DIR=$(SCXOMI_DIR) \
