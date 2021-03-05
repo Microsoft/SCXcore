@@ -392,10 +392,10 @@ changetargetdir:
 	INTERMEDIATE_DIR=$(INTERMEDIATE_DIR)_$(WITH_SYMBOLS)
 	OUTPUT_PACKAGE_PREFIX=$(OUTPUT_PACKAGE_PREFIX).$(WITH_SYMBOLS)
 
-bundle: kit genbundle changetargetdir genbundle
+bundle: kit genbundle1 changetargetdir genbundle2
 	# Done bundle
 
-genbundle:
+genbundle1 genbundle2:
 	mkdir -p $(TARGET_DIR)
 
 ifneq ($(OSS_KITS),)
