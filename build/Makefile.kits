@@ -11,7 +11,7 @@ SEPOLICY_DIR_EL6=$(INTERMEDIATE_DIR)/selinux.el6
 
 OUTPUT_PACKAGE_PREFIX=
 OUTPUT_PACKAGE_SPECIFICATION=
-WITH_SYMBOLS=debug
+WITH_SYMBOLS=withsymbols
 IS_OPENSSL_100=$(shell openssl version | grep 1.0 | wc -l)
 
 ifeq ($(PF_ARCH),x64)
