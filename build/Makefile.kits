@@ -164,7 +164,7 @@ else
 	sudo rm -rf $(STAGING_DIR)
 	python $(SCXPAL_DIR)/installer/InstallBuilder/installbuilder.py \
 		--BASE_DIR=$(SCX_BRD) \
-		--TARGET_DIR=$(INTERMEDIATE_DIR)/100 \
+		--TARGET_DIR=$(INTERMEDIATE_DIR)_$(WITH_SYMBOLS)/100 \
 		--INTERMEDIATE_DIR=$(SCX_BRD)/installer/intermediate \
 		--STAGING_DIR=$(STAGING_DIR) \
 		--OMI_DIR=$(SCXOMI_DIR) \
