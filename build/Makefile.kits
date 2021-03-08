@@ -12,6 +12,7 @@ SEPOLICY_DIR_EL6=$(INTERMEDIATE_DIR)/selinux.el6
 OUTPUT_PACKAGE_PREFIX=
 OUTPUT_PACKAGE_SPECIFICATION=
 WITH_SYMBOLS=withsymbols
+PACKAGE_FILENAME=package_filename
 IS_OPENSSL_100=$(shell openssl version | grep 1.0 | wc -l)
 
 ifeq ($(PF_ARCH),x64)
@@ -389,6 +390,7 @@ endif
 
 callgenbundle2: INTERMEDIATE_DIR:=$(INTERMEDIATE_DIR)_$(WITH_SYMBOLS)
 callgenbundle2: OUTPUT_PACKAGE_PREFIX:=$(OUTPUT_PACKAGE_PREFIX).$(WITH_SYMBOLS)
+callgenbundle2: PACKAGE_FILENAME:=symbol_package_filename
 callgenbundle2: genbundle2
 	# Done generate the second bundle
 
@@ -464,16 +466,12 @@ ifneq ($(COMBINED_PACKAGES),1)
 	../installer/bundle/create_bundle.sh $(DISTRO_TYPE) $(INTERMEDIATE_DIR) `cat $(INTERMEDIATE_DIR)/package_filename`.tar `cat $(INTERMEDIATE_DIR)/package_filename` `cat $(INTERMEDIATE_DIR)/omi_package_filename` $(DISABLE_LISTENER)
 	# Remove package extension from `package_filename` file (AIX: .lpp, HP: .depot, Sun: .pkg)
 	cd $(INTERMEDIATE_DIR); sed -e 's/.lpp$$//' -e 's/.depot$$//' -e 's/.pkg$$//' package_filename > package_filename.tmp; mv package_filename.tmp package_filename
-        ifeq ($(findstring $(WITH_SYMBOLS),$(INTERMEDIATE_DIR)),$(WITH_SYMBOLS))
-	   # Copy the symbol shell bundle to the target directory
-	   cat $(INTERMEDIATE_DIR)/package_filename > $(INTERMEDIATE_DIR)/symbol_package_filename
-	   echo .$(WITH_SYMBOLS) >> $(INTERMEDIATE_DIR)/symbol_package_filename
-	   cd $(INTERMEDIATE_DIR); mv `cat $(INTERMEDIATE_DIR)/package_filename`.sh `cat $(INTERMEDIATE_DIR)/symbol_package_filename`.sh
-	   cd $(INTERMEDIATE_DIR); cp `cat $(INTERMEDIATE_DIR)/symbol_package_filename`.sh $(TARGET_DIR)
-        else
-	   # Copy the release shell bundle to the target directory
-	   cd $(INTERMEDIATE_DIR); cp `cat $(INTERMEDIATE_DIR)/package_filename`.sh $(TARGET_DIR)
-        endif
+	# Generate the symbol shell bundle
+	test "${PACKAGE_FILENAME}" = "symbol_package_filename" && echo -n `cat $(INTERMEDIATE_DIR)/package_filename` > $(INTERMEDIATE_DIR)/symbol_package_filename || true
+	test "${PACKAGE_FILENAME}" = "symbol_package_filename" && echo .$(WITH_SYMBOLS) >> $(INTERMEDIATE_DIR)/symbol_package_filename || true
+	test "${PACKAGE_FILENAME}" = "symbol_package_filename" && cd $(INTERMEDIATE_DIR); mv `cat $(INTERMEDIATE_DIR)/package_filename`.sh `cat $(INTERMEDIATE_DIR)/symbol_package_filename`.sh || true
+	# Copy the shell bundle to the target directory
+	cd $(INTERMEDIATE_DIR); cp `cat $(INTERMEDIATE_DIR)/$(PACKAGE_FILENAME)`.sh $(TARGET_DIR)
   endif # ifneq ($(DISTRO_TYPE),Linux)
 
 else # ifneq ($(COMBINED_PACKAGES),1)
