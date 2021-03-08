@@ -467,7 +467,7 @@ ifneq ($(COMBINED_PACKAGES),1)
         ifeq ($(findstring $(WITH_SYMBOLS),$(INTERMEDIATE_DIR)),$(WITH_SYMBOLS))
 	   # Copy the symbol shell bundle to the target directory
 	   cat $(INTERMEDIATE_DIR)/package_filename > $(INTERMEDIATE_DIR)/symbol_package_filename
-	   echo `$(WITH_SYMBOLS)` >> $(INTERMEDIATE_DIR)/symbol_package_filename
+	   echo .$(WITH_SYMBOLS) >> $(INTERMEDIATE_DIR)/symbol_package_filename
 	   cd $(INTERMEDIATE_DIR); mv `cat $(INTERMEDIATE_DIR)/package_filename`.sh `cat $(INTERMEDIATE_DIR)/symbol_package_filename`.sh
 	   cd $(INTERMEDIATE_DIR); cp `cat $(INTERMEDIATE_DIR)/symbol_package_filename`.sh $(TARGET_DIR)
         else
