@@ -207,68 +207,9 @@ ifeq ($(PF_ARCH),x64)
 		--DATAFILE_PATH=$(SCX_BRD)/installer/datafiles \
 		$(OUTPUT_PACKAGE_SPECIFICATION_WITHSYMBOLS) \
 		$(DATAFILES) $(DATAFILES_R)
-	sudo rm -rf $(STAGING_DIR)
-endif
-	$(STRIP_PATH) $(SCX_BRD)/intermediate/$(BUILD_CONFIGURATION)/* > /dev/null 2>&1|true
-	python $(SCXPAL_DIR)/installer/InstallBuilder/installbuilder.py \
-		--BASE_DIR=$(SCX_BRD) \
-		--TARGET_DIR=$(INTERMEDIATE_DIR)/098 \
-		--INTERMEDIATE_DIR=$(SCX_BRD)/installer/intermediate \
-		--STAGING_DIR=$(STAGING_DIR) \
-		--OMI_DIR=$(SCXOMI_DIR) \
-		--BUILD_TYPE=$(BUILD_TYPE) \
-		--BUILD_CONFIGURATION=$(BUILD_CONFIGURATION) \
-		--PFARCH=$(PF_ARCH) \
-		--PFMAJOR=$(PF_MAJOR) \
-		--PFMINOR=$(PF_MINOR) \
-		--VERSION=$(SCX_BUILDVERSION_MAJOR).$(SCX_BUILDVERSION_MINOR).$(SCX_BUILDVERSION_PATCH) \
-		--RELEASE=$(SCX_BUILDVERSION_BUILDNR) \
-		--ULINUX_POSTFIX=/openssl_0.9.8 $(DISABLE_PORT) \
-		--DATAFILE_PATH=$(SCX_BRD)/installer/datafiles \
-		$(OUTPUT_PACKAGE_SPECIFICATION) \
-		$(DATAFILES) $(DATAFILES_R)
-	sudo rm -rf $(STAGING_DIR)
-	python $(SCXPAL_DIR)/installer/InstallBuilder/installbuilder.py \
-		--BASE_DIR=$(SCX_BRD) \
-		--TARGET_DIR=$(INTERMEDIATE_DIR)/100 \
-		--INTERMEDIATE_DIR=$(SCX_BRD)/installer/intermediate \
-		--STAGING_DIR=$(STAGING_DIR) \
-		--OMI_DIR=$(SCXOMI_DIR) \
-		--BUILD_TYPE=$(BUILD_TYPE) \
-		--BUILD_CONFIGURATION=$(BUILD_CONFIGURATION) \
-		--PFARCH=$(PF_ARCH) \
-		--PFMAJOR=$(PF_MAJOR) \
-		--PFMINOR=$(PF_MINOR) \
-		--VERSION=$(SCX_BUILDVERSION_MAJOR).$(SCX_BUILDVERSION_MINOR).$(SCX_BUILDVERSION_PATCH) \
-		--RELEASE=$(SCX_BUILDVERSION_BUILDNR) \
-		--ULINUX_POSTFIX=/openssl_1.0.0 $(DISABLE_PORT) \
-		--DATAFILE_PATH=$(SCX_BRD)/installer/datafiles \
-		$(OUTPUT_PACKAGE_SPECIFICATION) \
-		$(DATAFILES) $(DATAFILES_R)
-	sudo rm -rf $(STAGING_DIR)
-ifeq ($(PF_ARCH),x64)
-	rm -rf $(INTERMEDIATE_DIR)/110
-	mkdir -p $(INTERMEDIATE_DIR)/110
-	python $(SCXPAL_DIR)/installer/InstallBuilder/installbuilder.py \
-		--BASE_DIR=$(SCX_BRD) \
-		--TARGET_DIR=$(INTERMEDIATE_DIR)/110 \
-		--INTERMEDIATE_DIR=$(SCX_BRD)/installer/intermediate \
-		--STAGING_DIR=$(STAGING_DIR) \
-		--OMI_DIR=$(SCXOMI_DIR) \
-		--BUILD_TYPE=$(BUILD_TYPE) \
-		--BUILD_CONFIGURATION=$(BUILD_CONFIGURATION) \
-		--PFARCH=$(PF_ARCH) \
-		--PFMAJOR=$(PF_MAJOR) \
-		--PFMINOR=$(PF_MINOR) \
-		--VERSION=$(SCX_BUILDVERSION_MAJOR).$(SCX_BUILDVERSION_MINOR).$(SCX_BUILDVERSION_PATCH) \
-		--RELEASE=$(SCX_BUILDVERSION_BUILDNR) \
-		--ULINUX_POSTFIX=/openssl_1.1.0 $(DISABLE_PORT) \
-		--DATAFILE_PATH=$(SCX_BRD)/installer/datafiles \
-		$(OUTPUT_PACKAGE_SPECIFICATION) \
-		$(DATAFILES) $(DATAFILES_R)
 endif
 
-	# Next comes DEB packages
+	# Next comes symbol DEB packages
 	sudo rm -rf $(STAGING_DIR)
 	python $(SCXPAL_DIR)/installer/InstallBuilder/installbuilder.py \
 		--BASE_DIR=$(SCX_BRD) \
@@ -330,8 +271,67 @@ ifeq ($(PF_ARCH),x64)
 	sudo rm -rf $(STAGING_DIR)
 endif
 
-	# Next comes DEB release packages
+	# Next comes RPM release packages
 	$(STRIP_PATH) $(SCX_BRD)/intermediate/$(BUILD_CONFIGURATION)/* > /dev/null 2>&1|true
+	python $(SCXPAL_DIR)/installer/InstallBuilder/installbuilder.py \
+		--BASE_DIR=$(SCX_BRD) \
+		--TARGET_DIR=$(INTERMEDIATE_DIR)/098 \
+		--INTERMEDIATE_DIR=$(SCX_BRD)/installer/intermediate \
+		--STAGING_DIR=$(STAGING_DIR) \
+		--OMI_DIR=$(SCXOMI_DIR) \
+		--BUILD_TYPE=$(BUILD_TYPE) \
+		--BUILD_CONFIGURATION=$(BUILD_CONFIGURATION) \
+		--PFARCH=$(PF_ARCH) \
+		--PFMAJOR=$(PF_MAJOR) \
+		--PFMINOR=$(PF_MINOR) \
+		--VERSION=$(SCX_BUILDVERSION_MAJOR).$(SCX_BUILDVERSION_MINOR).$(SCX_BUILDVERSION_PATCH) \
+		--RELEASE=$(SCX_BUILDVERSION_BUILDNR) \
+		--ULINUX_POSTFIX=/openssl_0.9.8 $(DISABLE_PORT) \
+		--DATAFILE_PATH=$(SCX_BRD)/installer/datafiles \
+		$(OUTPUT_PACKAGE_SPECIFICATION) \
+		$(DATAFILES) $(DATAFILES_R)
+	sudo rm -rf $(STAGING_DIR)
+	python $(SCXPAL_DIR)/installer/InstallBuilder/installbuilder.py \
+		--BASE_DIR=$(SCX_BRD) \
+		--TARGET_DIR=$(INTERMEDIATE_DIR)/100 \
+		--INTERMEDIATE_DIR=$(SCX_BRD)/installer/intermediate \
+		--STAGING_DIR=$(STAGING_DIR) \
+		--OMI_DIR=$(SCXOMI_DIR) \
+		--BUILD_TYPE=$(BUILD_TYPE) \
+		--BUILD_CONFIGURATION=$(BUILD_CONFIGURATION) \
+		--PFARCH=$(PF_ARCH) \
+		--PFMAJOR=$(PF_MAJOR) \
+		--PFMINOR=$(PF_MINOR) \
+		--VERSION=$(SCX_BUILDVERSION_MAJOR).$(SCX_BUILDVERSION_MINOR).$(SCX_BUILDVERSION_PATCH) \
+		--RELEASE=$(SCX_BUILDVERSION_BUILDNR) \
+		--ULINUX_POSTFIX=/openssl_1.0.0 $(DISABLE_PORT) \
+		--DATAFILE_PATH=$(SCX_BRD)/installer/datafiles \
+		$(OUTPUT_PACKAGE_SPECIFICATION) \
+		$(DATAFILES) $(DATAFILES_R)
+	sudo rm -rf $(STAGING_DIR)
+ifeq ($(PF_ARCH),x64)
+	rm -rf $(INTERMEDIATE_DIR)/110
+	mkdir -p $(INTERMEDIATE_DIR)/110
+	python $(SCXPAL_DIR)/installer/InstallBuilder/installbuilder.py \
+		--BASE_DIR=$(SCX_BRD) \
+		--TARGET_DIR=$(INTERMEDIATE_DIR)/110 \
+		--INTERMEDIATE_DIR=$(SCX_BRD)/installer/intermediate \
+		--STAGING_DIR=$(STAGING_DIR) \
+		--OMI_DIR=$(SCXOMI_DIR) \
+		--BUILD_TYPE=$(BUILD_TYPE) \
+		--BUILD_CONFIGURATION=$(BUILD_CONFIGURATION) \
+		--PFARCH=$(PF_ARCH) \
+		--PFMAJOR=$(PF_MAJOR) \
+		--PFMINOR=$(PF_MINOR) \
+		--VERSION=$(SCX_BUILDVERSION_MAJOR).$(SCX_BUILDVERSION_MINOR).$(SCX_BUILDVERSION_PATCH) \
+		--RELEASE=$(SCX_BUILDVERSION_BUILDNR) \
+		--ULINUX_POSTFIX=/openssl_1.1.0 $(DISABLE_PORT) \
+		--DATAFILE_PATH=$(SCX_BRD)/installer/datafiles \
+		$(OUTPUT_PACKAGE_SPECIFICATION) \
+		$(DATAFILES) $(DATAFILES_R)
+endif
+
+	# Next comes DEB release packages
 	sudo rm -rf $(STAGING_DIR)
 	python $(SCXPAL_DIR)/installer/InstallBuilder/installbuilder.py \
 		--BASE_DIR=$(SCX_BRD) \
