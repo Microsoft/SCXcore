@@ -146,7 +146,7 @@ ifneq ($(COMBINED_PACKAGES),1)
 else
 
 	# Build for COMBINED_PACKAGES (.rpm and .deb living together, mass hysteria)
-	# First comes RPM packages
+	# First comes RPM symbol packages
 	sudo rm -rf $(STAGING_DIR)
 	rm -rf $(INTERMEDIATE_DIR)/{098,100}
 	mkdir -p $(INTERMEDIATE_DIR)/{098,100}
@@ -209,7 +209,7 @@ ifeq ($(PF_ARCH),x64)
 		$(DATAFILES) $(DATAFILES_R)
 endif
 
-	# Next comes symbol DEB packages
+	# Next comes DEB symbol packages
 	sudo rm -rf $(STAGING_DIR)
 	python $(SCXPAL_DIR)/installer/InstallBuilder/installbuilder.py \
 		--BASE_DIR=$(SCX_BRD) \
@@ -271,6 +271,9 @@ ifeq ($(PF_ARCH),x64)
 	sudo rm -rf $(STAGING_DIR)
 endif
 
+	# Backup BUILD_CONFIGURATION folder before strip
+	mkdir -p $(STRIP_PATH) $(SCX_BRD)/intermediate/$(BUILD_CONFIGURATION)_bak
+	cp -R $(SCX_BRD)/intermediate/$(BUILD_CONFIGURATION)/* $(SCX_BRD)/intermediate/$(BUILD_CONFIGURATION)_bak
 	# Next comes RPM release packages
 	$(STRIP_PATH) $(SCX_BRD)/intermediate/$(BUILD_CONFIGURATION)/* > /dev/null 2>&1|true
 	python $(SCXPAL_DIR)/installer/InstallBuilder/installbuilder.py \
@@ -401,6 +404,9 @@ callgenbundle2: genbundle2
 	# Done generate the second bundle
 
 bundle: kit genbundle1 callgenbundle2
+	# Restore folder
+	mv $(SCX_BRD)/intermediate/$(BUILD_CONFIGURATION)_bak $(SCX_BRD)/intermediate/$(BUILD_CONFIGURATION)
+	rm -rf $(SCX_BRD)/intermediate/$(BUILD_CONFIGURATION)_bak
 	# Done bundle
 
 genbundle1 genbundle2:
