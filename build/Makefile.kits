@@ -125,7 +125,7 @@ ifneq ($(COMBINED_PACKAGES),1)
 
 	sudo rm -rf $(STAGING_DIR)
 	# Backup BUILD_CONFIGURATION folder before strip
-	mkdir -p $(STRIP_PATH) $(SCX_BRD)/intermediate/$(BUILD_CONFIGURATION)_bak
+	mkdir -p $(SCX_BRD)/intermediate/$(BUILD_CONFIGURATION)_bak
 	cp -R $(SCX_BRD)/intermediate/$(BUILD_CONFIGURATION)/* $(SCX_BRD)/intermediate/$(BUILD_CONFIGURATION)_bak
 	# strip binaries
 	$(STRIP_PATH) $(SCX_BRD)/intermediate/$(BUILD_CONFIGURATION)/* > /dev/null 2>&1|true
