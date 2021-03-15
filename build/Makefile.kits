@@ -484,7 +484,9 @@ ifneq ($(COMBINED_PACKAGES),1)
 	cd $(INTERMEDIATE_DIR); sed -e 's/.lpp$$//' -e 's/.depot$$//' -e 's/.pkg$$//' package_filename > package_filename.tmp; mv package_filename.tmp package_filename
 	# Generate the symbol shell bundle
 	test "${PACKAGE_FILENAME}" = "symbol_package_filename" && echo -n `cat $(INTERMEDIATE_DIR)/package_filename` > $(INTERMEDIATE_DIR)/symbol_package_filename || true
-	test "${PACKAGE_FILENAME}" = "symbol_package_filename" && echo .$(WITH_SYMBOLS) >> $(INTERMEDIATE_DIR)/symbol_package_filename || true
+        ifeq ($(PF),AIX)
+	   test "${PACKAGE_FILENAME}" = "symbol_package_filename" && echo .$(WITH_SYMBOLS) >> $(INTERMEDIATE_DIR)/symbol_package_filename || true
+        endif
 	test "${PACKAGE_FILENAME}" = "symbol_package_filename" && cd $(INTERMEDIATE_DIR); mv `cat $(INTERMEDIATE_DIR)/package_filename`.sh `cat $(INTERMEDIATE_DIR)/symbol_package_filename`.sh || true
 	# Copy the shell bundle to the target directory
 	cd $(INTERMEDIATE_DIR); cp `cat $(INTERMEDIATE_DIR)/$(PACKAGE_FILENAME)`.sh $(TARGET_DIR)
